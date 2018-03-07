@@ -1,6 +1,7 @@
 {
     "name": "nailsapp/driver-error-handler-sentry",
     "keywords": ["Nails", "Shed Collective", "CodeIgniter", "ErrorHandler", "Driver", "Sentry"],
+    "homepage": "",
     "description": "This driver provides support for sentry.io error handling in Nails",
     "license": "MIT",
     "authors":
