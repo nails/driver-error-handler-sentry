@@ -2,17 +2,36 @@
 
 namespace Nails\Common\ErrorHandler;
 
+use Nails\Common\Exception\NailsException;
 use Nails\Common\Interfaces\ErrorHandlerDriver;
+use Nails\Factory;
 
 class Sentry implements ErrorHandlerDriver
 {
     /**
+     * Whether the driver is configured or not
+     * @var bool
+     */
+    protected static $bIsAvailable = false;
+
+    // --------------------------------------------------------------------------
+
+    /**
      * Instantiates the driver
+     *
+     * @throws NailsException
      * @return void
      */
     public static function init()
     {
-        //  @todo (Pablo - 2018-03-07) - implement
+        /**
+         * If the Sentry token is provided then we'll instantiate the appropriate classes; if it's not
+         * then we'll not do anything and let errors bubble through to the default handler.
+         */
+        if (defined('DEPLOY_SENTRY_ACCESS_TOKEN')) {
+            static::$bIsAvailable = true;
+            //  @todo (Pablo - 2018-03-07) - Configure the appropriate classes
+        }
     }
 
     // --------------------------------------------------------------------------
@@ -29,7 +48,18 @@ class Sentry implements ErrorHandlerDriver
      */
     public static function error($iErrorNumber, $sErrorString, $sErrorFile, $iErrorLine)
     {
-        //  @todo (Pablo - 2018-03-07) - implement
+        if ($iErrorNumber == E_STRICT) {
+            return;
+        }
+
+        if (static::$bIsAvailable) {
+            //  @todo (Pablo - 2018-03-07) - Call the appropriate method
+        }
+
+        //  Bubble to the default driver
+        $oErrorHandler        = Factory::service('ErrorHandler');
+        $sDefaultHandlerClass = $oErrorHandler->getDefaultDriverClass();
+        $sDefaultHandlerClass::error($iErrorNumber, $sErrorString, $sErrorFile, $iErrorLine);
     }
 
     // --------------------------------------------------------------------------
@@ -43,7 +73,14 @@ class Sentry implements ErrorHandlerDriver
      */
     public static function exception($oException)
     {
-        //  @todo (Pablo - 2018-03-07) - implement
+        if (static::$bIsAvailable) {
+            //  @todo (Pablo - 2018-03-07) - Call the appropriate method
+        }
+
+        //  Bubble to the default driver
+        $oErrorHandler        = Factory::service('ErrorHandler');
+        $sDefaultHandlerClass = $oErrorHandler->getDefaultDriverClass();
+        $sDefaultHandlerClass::exception($oException);
     }
 
     // --------------------------------------------------------------------------
@@ -54,6 +91,13 @@ class Sentry implements ErrorHandlerDriver
      */
     public static function fatal()
     {
-        //  @todo (Pablo - 2018-03-07) - implement
+        if (static::$bIsAvailable) {
+            //  @todo (Pablo - 2018-03-07) - Call the appropriate method
+        }
+
+        //  Bubble to the default driver
+        $oErrorHandler        = Factory::service('ErrorHandler');
+        $sDefaultHandlerClass = $oErrorHandler->getDefaultDriverClass();
+        $sDefaultHandlerClass::fatal();
     }
 }
