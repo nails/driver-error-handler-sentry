@@ -1,5 +1,5 @@
 {
-    "name": "nailsapp/driver-error-handler-sentry",
+    "name": "nails/driver-error-handler-sentry",
     "keywords": ["Nails", "Shed Collective", "CodeIgniter", "ErrorHandler", "Driver", "Sentry"],
     "homepage": "",
     "description": "This driver provides support for sentry.io error handling in Nails",
@@ -31,7 +31,7 @@
         "nails": {
             "name": "Default",
             "type": "driver",
-            "forModule": "nailsapp/common",
+            "forModule": "nails/common",
             "subType": "ErrorHandler",
             "data": {
                 "namespace": "Nails\\Common\\ErrorHandler\\",

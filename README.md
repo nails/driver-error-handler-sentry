@@ -5,7 +5,7 @@ This driver provides support for reporting errors to sentry.io
 
 ## Installing
 
-    composer require nailsapp/driver-error-handler-sentry
+    composer require nails/driver-error-handler-sentry
 
 
 ## Configure
