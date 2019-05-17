@@ -67,11 +67,12 @@ class Sentry implements ErrorHandlerDriver
     /**
      * Catches uncaught exceptions
      *
-     * @param  \Exception $oException The caught exception
+     * @param \Exception $oException     The uncaught exception
+     * @param bool       $bHaltExecution Whether to show the error screen and halt execution
      *
      * @return void
      */
-    public static function exception($oException)
+    public static function exception($oException, $bHaltExecution = true)
     {
         if (static::$bIsAvailable) {
             //  @todo (Pablo - 2018-03-07) - Call the appropriate method
@@ -80,7 +81,7 @@ class Sentry implements ErrorHandlerDriver
         //  Bubble to the default driver
         $oErrorHandler        = Factory::service('ErrorHandler');
         $sDefaultHandlerClass = $oErrorHandler->getDefaultDriverClass();
-        $sDefaultHandlerClass::exception($oException);
+        $sDefaultHandlerClass::exception($oException, $bHaltExecution);
     }
 
     // --------------------------------------------------------------------------
