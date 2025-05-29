@@ -48,9 +48,6 @@ class Sentry implements ErrorHandlerDriver
      */
     public static function error($iErrorNumber, $sErrorString, $sErrorFile, $iErrorLine)
     {
-        if ($iErrorNumber == E_STRICT) {
-            return;
-        }
 
         if (static::$bIsAvailable) {
             //  @todo (Pablo - 2018-03-07) - Call the appropriate method
